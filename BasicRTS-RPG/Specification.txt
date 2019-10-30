@@ -1,0 +1,61 @@
+﻿menüben a játékos 
+  - választhat egy akciót
+  - kiléphet
+
+akció menüpontok:
+  - nyersanyaggyűjtés
+  - vadászat
+  - emberek behozatala
+  - emberek képzése
+  - házépítés
+ 
+nyersanyaggyűjtés menüpontok:
+  - fa (lvl 1, 2, 3)
+  - kő (lvl 1, 2, 3)
+  - a magasabb szintek a player szintjétől és a dolgozók számától függnek
+  - lefoglal dolgozókat és időbe telik
+  - nyersanyagot hoz és xp-t
+
+vadászat menüpont:
+  - hús (lvl 1, 2, 3)
+  - a magasabb szintek a player szintjétől és a dolgozók számától függnek
+  - lefoglal vadászokat és időbe telik
+  - kaját hoz és xp-t
+
+emberbehozatal menüpont: 
+  - ha van elég hely, megnöveli a népességet
+  - kajába kerül és időbe telik
+  - xp-t hoz
+  
+emberképzés menüpontok:
+  - sima emberből képezhet dolgozót vagy vadászt
+  - nem kerül nyersanyagba és xp-t hoz
+  - vadászból képezhet dolgozót
+  - dolgozóból képezhet vadászt
+  - fába és kajába kerül és xp-t hoz
+  
+házépítés menüpont:
+  - megnőveli a lakosság számát X-el
+  - dolgozókat lefoglal és időbe telik
+  - sima embert csinál
+  - fába és kőbe kerül, xp-t hoz
+
+
+
+legyen egy player model, amiben a player adatai vannak nyilvántartva
+legyen egy léptető gép, ami vár a felhasználó inputjára, és az input alapján a megfelelő akciót végrehajtja
+legyen egy parser, ami az inputot validálja és konvertálja a megfelelő akcióra
+akciókiválasztás után legyen megkérdezve a felhasználó mennyi embert szán az akcióra
+  - ezek legyenek validálva, és legyen megerősítés prompt. Legyen kiírva mennyi nyersanyagot használ és mennyi időbe telik
+ha véget ért az akció, a player model legyen frissítve xp-vel (lépjen szintet ha 100%-ot elérte az xp), illetve az új nyersanyagokkal, emberekkel
+advanced:  legyen egy háttérfolyamat, ami számon tartja a folyamatban lévő akciókat. (async tasks) 
+  - a kész akciók frissítsék a player adatait. ezek állapota a menüben jelenjen meg, vagy legyen lekérdezhető.
+advanced: legyenek tesztek
+
+player adatai:
+  - szint
+  - xp
+  - nyersanyagok (fa, kő, kaja)
+  - népesség (sima ember, dolgozó, vadász)
+  - elérhető népesség
+  - egy dicitonary, számon tartani a folyamatban lévő akciókat és a lefoglalt embereket

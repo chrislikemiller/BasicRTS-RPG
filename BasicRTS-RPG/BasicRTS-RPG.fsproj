@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Specification.txt" />
+    <Compile Include="Models\Person.fs" />
+    <Compile Include="Models\Resources.fs" />
+    <Compile Include="Models\Action.fs" />
+    <Compile Include="Models\Player.fs" />
+    <Compile Include="Models\GameWorld.fs" />
+    <Compile Include="Actions\Population.fs" />
+    <Compile Include="Actions\Train.fs" />
+    <Compile Include="Actions\Gather.fs" />
+    <Compile Include="Util.fs" />
+    <Compile Include="GameLogic.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+</Project>
