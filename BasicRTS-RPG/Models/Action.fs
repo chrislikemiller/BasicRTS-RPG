@@ -3,7 +3,6 @@
 open Resources
 open System
 
-
 type ActionType =
     | Gathering of GatheringType
     | Hunting
@@ -11,6 +10,11 @@ type ActionType =
     | IncreasePopulation
     | TrainPeople of TrainingType
     | RefreshMenu
+
+type ProgressState =
+    | NotStarted
+    | Started of DateTime * DateTime
+    | Done
 
 type GatheringAction =
     {
@@ -24,15 +28,8 @@ type TrainingAction =
         Level : int
     }
 
-type Action =
-    {
-        Type : ActionType
-        Level : int
-    }
-
-type ActionState = 
-    {
-        Type : ActionType
-        Duration : DateTime * DateTime
-        Amount : int
-    }
+//type Action =
+//    {
+//        Type : ActionType
+//        Level : int
+//    }

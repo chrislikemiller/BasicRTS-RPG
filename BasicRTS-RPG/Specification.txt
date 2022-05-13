@@ -59,3 +59,20 @@ player adatai:
   - népesség (sima ember, dolgozó, vadász)
   - elérhető népesség
   - egy dicitonary, számon tartani a folyamatban lévő akciókat és a lefoglalt embereket
+
+
+mailbox processor speci:
+	- loop ami folyamatosan kéri be az adatokat
+	- mailboxprocessor recievel amikor bejön a user input
+	- megváltoztatja az állapotot
+	- tehát igazából két párhuzamosan futó végtelen ciklus, egy a user inputoknak, másik a feldolgozásnak
+
+player akció szekvencia
+	- check hogy kész van-e valamelyik akció
+	- ha kész van, akkor a resource-ok megnövelése az akció alapján
+	- inputbekérés akcióra
+	- az akció levonja a playertől a megfelelő resourceokat
+	- restart
+tehát:
+	- az akciónak tudnia kell magáról, hogy mennyi resource-ot von le és mennyi resource-ot ad  
+	- legyen egy-egy függvény arra hogy hogyan változik a player az akció elején, és hogyan a végén

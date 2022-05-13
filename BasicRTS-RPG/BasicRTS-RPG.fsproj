@@ -2,11 +2,13 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="Specification.txt" />
+    <Compile Include="Common.fs" />
+    <Compile Include="Strings.fs" />
     <Compile Include="Models\Person.fs" />
     <Compile Include="Models\Resources.fs" />
     <Compile Include="Models\Action.fs" />
@@ -17,6 +19,7 @@
     <Compile Include="Actions\Gather.fs" />
     <Compile Include="Util.fs" />
     <Compile Include="GameLogic.fs" />
+    <Compile Include="Tests\Test.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

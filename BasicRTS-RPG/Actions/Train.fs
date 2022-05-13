@@ -8,17 +8,17 @@ open Resources
 
 let matchPerson trainingType person =
     match trainingType with
-    | UnemployedToHunter -> person = Unemployed
-    | UnemployedToWorker -> person = Unemployed
-    | HunterToWorker -> person = Hunter
-    | WorkerToHunter -> person = Worker
+    | HunterToUnemployed -> person = Hunter
+    | WorkerToUnemployed -> person = Worker
+    | GathererToUnemployed -> person = Gatherer
+    | _ -> person = Unemployed
 
 let trainPerson trainingType =
     match trainingType with
     | UnemployedToHunter -> Hunter
     | UnemployedToWorker -> Worker
-    | HunterToWorker -> Worker
-    | WorkerToHunter -> Hunter
+    | UnemployedToGatherer -> Gatherer
+    | _ -> Unemployed
 
 
 let train from change n population = 
@@ -31,28 +31,24 @@ let train from change n population =
     |> fst
 
 
-let meetsResourceRequirement trainingType player = 
-    match trainingType with
-    | HunterToWorker -> player.Resources.Food >= 10 && player.Resources.Wood >= 10
-    | WorkerToHunter -> player.Resources.Food >= 10 && player.Resources.Wood >= 10
-    | _ -> true
+let canTrainPeople trainingType player amount  = 
+    let result = match trainingType with
+                 | UnemployedToHunter | UnemployedToWorker | UnemployedToGatherer 
+                    -> player.Resources.Food >= trainingFoodRequirement * amount && player.Resources.Wood >= trainingWoodRequirement * amount
+                 | _ -> true
+    Some <| if result && amount <= (player.Population |> (matchPerson trainingType |> List.filter) |> List.length) 
+            then Ok true else Error "not enough food or space"
 
-let updateResources trainingType count resources =
+let updateResources trainingType amount resources =
     match trainingType with 
-    | HunterToWorker -> { resources with Food = resources.Food - count * retrainingFoodRequirement  
-                                         Wood = resources.Wood - count * retrainingWoodRequirement }
-    | WorkerToHunter -> { resources with Food = resources.Food - count * retrainingFoodRequirement  
-                                         Wood = resources.Wood - count * retrainingWoodRequirement }
+    | UnemployedToHunter | UnemployedToWorker | UnemployedToGatherer 
+        -> { resources with Food = resources.Food - amount * trainingFoodRequirement  
+                            Wood = resources.Wood - amount * trainingWoodRequirement }
     | _ -> resources
 
-let trainPeople trainingType count player =
-    if meetsResourceRequirement trainingType player
-       && count <= (player.Population 
-                    |> (List.filter <| matchPerson trainingType) 
-                    |> List.length) 
-    then Ok { player with Population = train (fun person -> matchPerson trainingType person) 
-                                             (fun _ -> trainPerson trainingType) 
-                                             count 
-                                             player.Population 
-                          Resources = updateResources trainingType count player.Resources } 
-    else Error (player, "Cannot train, not enough space or not enough food.") 
+let trainPeople trainingType amount player = 
+     { player with Resources = updateResources trainingType amount player.Resources 
+                   Population = train (fun person -> matchPerson trainingType person) 
+                                      (fun _ -> trainPerson trainingType) 
+                                      amount 
+                                      player.Population } 
